@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+
+<div class="container">
+<form method="post" action="/update/<%= data.id %>">
+<% for(var key in data) if(data.hasOwnProperty(key)) {%>
+<p><label for="<%= key %>"><%= key %></label><br>
+<% if (["id", "title", "thema", "target", "capacity", "social", "subid"].indexOf(key) != -1 ) {%>
+<input type="text" name="<%= key %>" value="<%= data[key] %>" <% if (key === "id") {%>readonly<% } %>>
+<% } else { %>
+<textarea name="<%= key %>"><%= data[key] %></textarea>
+<% } %>
+</p>
+<%} %>
+<button type="submit">送信</button>
+</div>
+</form>
+</body>
+</html>

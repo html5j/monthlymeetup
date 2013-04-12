@@ -1,0 +1,20 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.container {
+	width: 840px;
+}
+
+.container input{
+	width: 700px;
+}
+.container textarea{
+	width: 700px;
+	height: 100px;
+}
+
+a {
+  color: #00B7FF;
+}

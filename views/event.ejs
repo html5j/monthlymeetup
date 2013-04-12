@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= event.title %> - <%= event.thema %></title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css">
+    <script src="/javascripts/jquery-1.9.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+  .center {
+    text-align: center
+  }
+  .float-right {
+    float: right
+  }
+  .clear {
+    clear: both;
+  }
+  .red {
+    color: #f00;
+  }
+  </style>
+
+  </head>
+  <body>
+  <div class="navbar navbar-fixed-top">
+     <div class="navbar-inner">
+        <div class="container">
+           <a class="brand" target="_blank" href="http://www.html5j.org/">html5j</a>&nbsp;&nbsp;
+           <div class="float-right">
+                     <span id="signinButton">
+  <span
+    class="g-signin"
+    data-callback="signinCallback"
+    data-clientid="434703003659.apps.googleusercontent.com"
+    data-cookiepolicy="single_host_origin"
+    data-requestvisibleactions="http://schemas.google.com/AddActivity"
+    data-scope="https://www.googleapis.com/auth/plus.me">
+  </span>
+
+</span>
+</div>
+           <div class="float-right profile"></div>
+           <div class="nav-collapse collapse">
+           <ul class="nav">
+           </ul>
+         </div>
+       </div>
+     </div>
+    </div>
+    <div class=container name="top">
+    <div class="header row">
+      <div class="span8">
+        <div class=title>
+        <div class="hidden-tablet hidden-phone">
+          <br></br>
+          <br></br>
+        </div>
+        <div class="visible-phone center">
+         <a target="_blank" href="http://www.html5j.org"><img src="/images/html5j_o_240.png"></a>
+       </div>
+          <h1><%= event.title %></h1>
+          <p class=lead>- <%= event.thema %> -</p>
+        </div>
+      </div>
+      <div class="span4 center">
+        <div class="hidden-tablet hidden-phone">
+        <div class="logo-spacer">
+          <br></br>
+          <br></br>
+        </div>
+        </div>
+        <span class="hidden-phone">
+         <a target="_blank" class="brand" href="http://www.html5j.org"><img src="/images/html5j_o_240.png"></a>
+       </span>
+      </div>
+    </div>
+    <!-- // 以下は、応募者がいっぱいになったら表示
+    <div class=row>
+      <div class=span12>
+        <div class="alert alert-error">
+        <ul>
+        <li>参加者の方は、サイト右側の参加者一覧より、各自参加者IDをご確認いただき、当日受付時にこちらのIDをお伝えください。受け付け作業がスムーズとなりますので、是非ご協力頂けますようよろしくお願い致します。</li>
+
+        <li>募集定員に達しました。キャンセル待ちとなります</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+    -->
+
+   <div class=row>
+
+      <div class=span8>
+        <div id=notice>&nbsp;</div>
+      </div>
+      <div class=span4>
+        <div class="hidden-phone scribe center">
+          <a class="btn btn-large btn-info attend" href="#" target="_blank" disabled><i class="icon-hand-right icon-white"></i><span class="text"> 参加するにはログインが必要です(サイト右上)</span></a>
+        </div>
+        <div class="visible-phone scribe" style="text-align:center">
+          <a class="btn btn-info attend" href="#" target="_blank" disabled><i class="icon-hand-right icon-white"></i><span class="text">参加するにはログインが必要です(サイト右上)</span></a>
+          <a class="btn btn-warning" href="#attendees"><i class="icon-user icon-white"></i> 参加状況</a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class=row>
+      <div class=span8>
+        <div id=info data-eventid="<%= event.id %>">
+          <p>
+            <%- event.lead %>
+          </p>
+
+
+          <h2>イベント概要</h2>
+          <dl>
+            <dt>名称：</dt><dd><%= event.title %></dd>
+            <dt>テーマ：</dt><dd>- <%= event.thema %> -</dd>
+            <dt>概要：</dt><dd><%- event.description %></dd>
+            <dt>内容：</dt><dd><%- event.agenda %></dd>
+            <dt>会場：</dt><dd><%- event.venue %></dd>
+            <dt>日時：</dt><dd><%- event.date %></dd>
+            <dt>定員：</dt><dd><%= event.capacity %> 名（先着順）</dd>
+            <dt>会費：</dt><dd><%- event.dues %></dd>
+            <dt>対象者：</dt><dd><%= event.target %></dd>
+            <dt>主催:</dt><dd><%- event.organizer %></dd>
+            <dt>注意事項：</dt><dd><%- event.notes %></dd>
+          </dl>
+
+        </div>
+      </div>
+      <div class=span4>
+        <div class="visible-phone right">
+          <a href="#top">Topに戻る</a>
+        </div>
+        <h2 name="attendees">
+          参加状況
+        </h2>
+        <div id=content>
+          <div id="summary">
+            <h3 style="font-size: 1.5em">勉強会</h3>
+            <div style="margin-left: 16px">
+            <strong>参加希望者</strong><br>
+            <span style="color:red; font-size: 2em; font-weight:bold" class="total"><%= nums.total %></span> / <span class="capacity"><%= event.capacity %></span> 人<br>
+            (参加 <%= nums.num %>人、キャンセル待ち <%= nums.wait %>人)
+            </div>
+            <h3 style="font-size: 1.5em">懇親会</h3>
+            <div style="margin-left: 16px">
+            <%= nums.party %>人<br>
+            ※懇親会には、勉強会出席者のみ参加出来ます
+            </div>
+          </div>
+          <div id="attendees">
+            <h3>参加者(<%= nums.num %>人)</h3>
+            <table class="table">
+              <thead>
+                <tr><td>参加者ID</td><td>ハンドル</td><td>コメント</td><td>懇親会</td></tr>
+              </thead>
+              <% var t = 0, flag = false; %>
+              <% attendee.forEach(function(a) { %>
+                <%if(!!a.cancel_flag === false && t < event.capacity) {%>
+                <% t++ %>
+                <tr data-id="<%= a.user_googleid %>"><td><%= a.id %></td>
+                  <td><img src="<%= a.image_url %>">&nbsp;<%= a.handle_name %></td>
+                  <td><%= a.comment %></td>
+                  <td><% if(a.party === 1) { %>"出席"<%} else {"-"} %></td>
+                </tr>
+              <% } else if(!!a.cancel_flag === false) {%>
+                <% if(!!flag === false) { %></table>
+
+                <h3>キャンセル待ち(<%= nums.wait %>人)</h3>
+                <table class="table"> <% flag = true;} %>
+                <tr><td><%= a.id %></td>
+                  <td><img src="<%= a.image_url %>">&nbsp;<%= a.handle_name %></td>
+                  <td><%= a.comment %></td>
+                  <td><% if(a.party === 1) { %>"出席"<%} else {"-"} %></td>
+                </tr>
+              <% } %>
+            <% }) %>
+            </table>
+          </div>
+          <div id="waiting">
+          </div>
+        </div>
+      </div>
+    </div>
+        <div class=spacer></div>
+        <div class="visible-phone right">
+          <a href="#top">Topに戻る</a>
+        </div>
+
+    <hr>
+    <div class=footer>
+      <ul class="inline">
+        <li>
+    &copy; <a target="_blank" href="http://www.html5j.org">html5j</a>, 2012-2013
+  </li>
+  <li>
+
+           <a href="http://gihyo.jp/tagList/HTML5%E3%81%A8%E3%81%8B%E5%8B%89%E5%BC%B7%E4%BC%9A" target="_blank">過去の勉強会レポート(gihyo.jp)</a>
+         </li>
+    </div>
+
+
+    <div class="modal hide fade" id="attend">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>参加フォーム</h3>
+  </div>
+  <div class="modal-body">
+    <form method="post" action="">
+      (<span class="red">*</span> は入力必須項目)
+      <p>
+      <label for="name_kanji">お名前（漢字）<span class="red">*</span></label>
+      <input type="text" name="name_kanji" required>
+      </p>
+      <p>
+      <label for="name_kana">お名前（カナ）<span class="red">*</span></label>
+      <input type="text" name="name_kana" required>
+      </p>
+      <p>
+      <label for="affiliation">所属<span class="red">*</span></label>
+      <input type="text" name="affiliation" required>
+      </p>
+      <p>
+      <label for="handlename">ハンドルネーム<span class="red">*</span></label>
+      <input type="text" name="handlename" required>
+      </p>
+      <p>
+      <label for="mail">メールアドレス<span class="red">*</span></label>
+      <input type="text" name="mail" required>
+      </p>
+      <p>
+      <label class="checkbox">
+      <input type="checkbox" name="party">
+        懇親会に参加されますか？
+      </label>
+      </p>
+      <p>
+      <label for="comment">コメントありましたらご記入ください。</label>
+      <textarea name="comment" rows="5" style="width: 80%"></textarea>
+      </p>
+      <p>
+      <label for="privacypolicy">以下のプライバシーポリシーをご一読ください。（必須）<span class="red">*</span></label>
+      <div style="color:gray">本イベントは html5j.org によって開催されます。入力された個人情報は、登録者本人の同意がない限り本イベントの運営のみに利用し、他の目的での利用およびイベント運営に関わる第三者機関以外への開示、提供をすることはありません。</div>
+      <label class="checkbox">同意する <input type="checkbox" name="privacypolicy" required></label>
+      </label>
+      <input type="hidden" name="event_id" value="<%= event.id %>">
+      <input type="hidden" name="user_id" value="">
+      <input type="hidden" name="user_googleid">
+      <input type="hidden" name="user_imageurl">
+      </p>
+      <button class="btn btn-info" type="submit" disabled>参加する</button>
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+
+      <script type="text/javascript">
+  (function() {
+    // var po = document.createElement('script');
+    // po.type = 'text/javascript'; po.async = true;
+    // po.src = 'https://plus.google.com/js/client:plusone.js';
+    // var s = document.getElementsByTagName('script')[0];
+    // s.parentNode.insertBefore(po, s);
+  })();
+  </script>
+
+    <!-- Place this asynchronous JavaScript just before your </body> tag -->
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
+  </body>
+  </html>
