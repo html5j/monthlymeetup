@@ -29,6 +29,7 @@
         }
         player[$(this).data("method")]();
       })
+      
       $("form#translate").on("submit", function(e){
         e.preventDefault();
         var msg=$('#msg').val();
@@ -46,7 +47,6 @@
     <div id="controller">
       <strong>Current Video Time:</strong>
       <button class="start" data-method="startVideo">start</button>
-      <button class="pause" data-method="pauseVideo">pause</button>
     </div>
     <form id="translate">
     	<input type="text" id="msg" size="100" />
