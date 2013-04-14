@@ -38,6 +38,7 @@ app.get('/user/:googleid', routes.get_by_googleid);
 app.get('/event/cancel/:event_id/:googleid', routes.event_cancel);
 
 
+if(false){
 
 app.get('/update/:id', routes.update);
 app.post('/update/:id', routes.set);
@@ -45,6 +46,7 @@ app.get('/new', routes.new);
 app.get('/test', routes.test);
 app.get('/users', user.list);
 
+}
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
