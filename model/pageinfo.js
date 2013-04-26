@@ -10,16 +10,16 @@ var DEFAULT = {
   "dues": "無料<br>(懇親会参加費 無料)",
   "capacity": 180,
   "agenda": ['<ul>',
-  	"\n",
-  	'<li>「Tizenの概要」<a target="_blank" href="http://himamura-arandroid.blogspot.jp/">今村 博宣さん</a>(バイドゥ株式会社) 20min</li>',
-  	"\n",
+    "\n",
+    '<li>「Tizenの概要」<a target="_blank" href="http://himamura-arandroid.blogspot.jp/">今村 博宣さん</a>(バイドゥ株式会社) 20min</li>',
+    "\n",
     '<li>「Tizen APIの概要」<a target="_blank" href="http://eflmemo.hatenablog.com/">高橋 成人さん</a>(ターボシステムズ株式会社) 25min</li>',
-  	"\n",
+    "\n",
     '<li>「Firefox OS(仮)」<a target="_blank" href="http://twitter.com/dynamitter">浅井智也さん</a>(Mozilla) 45min</li>',
-  	"\n",
+    "\n",
     '<li>「特別セッション: HTML5Quizの中身」<a target="_blank" href="http://twitter.com/mitsuki_ni">小野 充輝さん</a>(サイバード) 20min</li>',
-  	"\n",
-  	"</ul>"
+    "\n",
+    "</ul>"
     ].join(""),
   "notes": "会場内 Free Wifi の接続数には限りがあります<br>利用可能な電源コンセント口数に限りがあります",
   "subid": "rixx"
@@ -45,47 +45,47 @@ PageInfo.showtest = function(callback){
 }
 
 PageInfo.new = function(callback, errCallback) {
-	var self = this;
-	connection.query('insert into pageinfo set ?', DEFAULT, function(err, result){
-		if(err) {
-			errCallback(err);
-		} else {
-			self.get(result.insertId, callback, errCallback);
-		}
-	})
+  var self = this;
+  connection.query('insert into pageinfo set ?', DEFAULT, function(err, result){
+    if(err) {
+      errCallback(err);
+    } else {
+      self.get(result.insertId, callback, errCallback);
+    }
+  })
 }
 
 PageInfo.set = function(data, callback, errCallback) {
-	var self = this;
-	var id = data.id;
-	delete data["id"]
-	connection.query('update pageinfo set ? where id = ?', [data, id], function(err, result){
-		if(err) {
-			errCallback(err);
-		} else {
-			self.get(id, callback, errCallback);
-		}
-	})
+  var self = this;
+  var id = data.id;
+  delete data["id"]
+  connection.query('update pageinfo set ? where id = ?', [data, id], function(err, result){
+    if(err) {
+      errCallback(err);
+    } else {
+      self.get(id, callback, errCallback);
+    }
+  })
 }
 
 PageInfo.get = function(id, callback, errCallback) {
-	connection.query('select * from pageinfo where id = ?', id, function(err, result){
-		if(err){
-			errCallback(err);
-		} else {
-			callback(result[0]);
-		}
-	})
+  connection.query('select * from pageinfo where id = ?', id, function(err, result){
+    if(err){
+      errCallback(err);
+    } else {
+      callback(result[0]);
+    }
+  })
 }
 
 PageInfo.get_by_subid = function(subid, callback, errCallback) {
-	connection.query('select * from pageinfo where subid = ?', subid, function(err, result){
-		if(err){
-			errCallback(err);
-		} else {
-			callback(result[0]);
-		}
-	})
+  connection.query('select * from pageinfo where subid = ?', subid, function(err, result){
+    if(err){
+      errCallback(err);
+    } else {
+      callback(result[0]);
+    }
+  })
 }
 
 
@@ -95,65 +95,65 @@ exports.PageInfo = PageInfo;
 var User = {}
 
 User.create = function(user, callback, errCallback) {
-	connection.query('insert into user set ?', user, function(err, result){
-		if(err) {
-			errCallback(err);
-		} else {
-			callback(result);
-		}
-	});
+  connection.query('insert into user set ?', user, function(err, result){
+    if(err) {
+      errCallback(err);
+    } else {
+      callback(result);
+    }
+  });
 }
 
 User.update = function(user_id, user, callback, errCallback) {
-	connection.query('update user set ? where id = ?', [user, user_id], function(err, result){
-		if(err) {
-			errCallback(err);
-		} else {
-			callback(result);
-		}
-	});
+  connection.query('update user set ? where id = ?', [user, user_id], function(err, result){
+    if(err) {
+      errCallback(err);
+    } else {
+      callback(result);
+    }
+  });
 }
 
 exports.User = User;
 
 User.get = function(googleid, callback, errCallback) {
-	connection.query('select * from user where google_id = ?', googleid, function(err, result){
-		if(err) {
-			errCallback(err)
-		} else {
-			callback(result)
-		}
-	})
+  connection.query('select * from user where google_id = ?', googleid, function(err, result){
+    if(err) {
+      errCallback(err)
+    } else {
+      callback(result)
+    }
+  })
 }
 
 var Attendee = {}
 
 Attendee.cancel = function(event_id, googleid, callback, errCallback) {
-	connection.query('update attendee set cancel_flag = 1 where user_googleid = ? and event_id = ?', [googleid, event_id], function(err, res) {
-		if(err) {
-			errCallback(err)
-		} else {
-			callback(res);
-		}
-	});
+  connection.query('update attendee set cancel_flag = 1 where user_googleid = ? and event_id = ?', [googleid, event_id], function(err, res) {
+    if(err) {
+      errCallback(err)
+    } else {
+      callback(res);
+    }
+  });
 }
 
 Attendee.create = function(attendee, callback, errCallback) {
-	connection.query('insert into attendee set ?', attendee, function(err, result){
-		if(err) {
-			errCallback(err);
-		} else {
-			callback(result);
-		}
-	});
+  connection.query('insert into attendee set ?', attendee, function(err, result){
+    if(err) {
+      errCallback(err);
+    } else {
+      callback(result);
+    }
+  });
 }
 
 Attendee.get = function(event_id, callback) {
-	connection.query('select t1.id, t1.user_id, t1.event_id, t1.party, t1.comment, t1.user_googleid, t2.handle_name, t2.image_url, t1.cancel_flag from attendee as t1, user as t2 where event_id = ? and t1.user_id = t2.id order by t1.id;', event_id, function(err, res){
-	if(err) { callback([]) 
-	} else {
-		callback(res);
-	}
+  connection.query('select t1.id, t1.user_id, t1.event_id, t1.party, t1.comment, t1.user_googleid, t2.handle_name, t2.image_url, t1.cancel_flag from attendee as t1, user as t2 where event_id = ? and t1.user_id = t2.id order by t1.id;', event_id, function(err, res){
+  if(err) { callback([])
+  } else {
+    callback(res);
+  }
 })
 }
 

@@ -175,7 +175,7 @@
 
                 <h3>キャンセル待ち(<%= nums.wait %>人)</h3>
                 <table class="table"> <% flag = true;} %>
-                <tr><td><%= a.id %></td>
+                <tr data-id="<%= a.user_googleid %>"><td><%= a.id %></td>
                   <td><img src="<%= a.image_url %>">&nbsp;<%= a.handle_name %></td>
                   <td><%= a.comment %></td>
                   <td><% if(a.party === 1) { %>"出席"<%} else {"-"} %></td>
