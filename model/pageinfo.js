@@ -29,7 +29,7 @@ var DEFAULT = {
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     "host": "localhost",
-    "database": "html5j",
+    "database": "html5j_0426",
     "user": "dev",
     "password": "dev"
 });
@@ -149,7 +149,7 @@ Attendee.create = function(attendee, callback, errCallback) {
 }
 
 Attendee.get = function(event_id, callback) {
-  connection.query('select t1.id, t1.user_id, t1.event_id, t1.party, t1.comment, t1.user_googleid, t2.handle_name, t2.image_url, t1.cancel_flag from attendee as t1, user as t2 where event_id = ? and t1.user_id = t2.id order by t1.id;', event_id, function(err, res){
+  connection.query('select t1.id, t1.user_id, t1.event_id, t1.party, t1.comment, t1.user_googleid, t2.handle_name, t2.image_url, t1.cancel_flag from (select * from attendee group by user_id)  as t1, user as t2 where event_id = ? and t1.user_id = t2.id order by t1.id;', event_id, function(err, res){
   if(err) { callback([])
   } else {
     callback(res);
